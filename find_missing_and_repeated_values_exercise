@@ -1,0 +1,12 @@
+class Solution:
+    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
+        values = set()
+        for row, line in enumerate(grid):
+            for col, n in enumerate(line):
+                print(row,col,n)
+                if n in values:
+                    a = n
+                else:
+                    values.add(n)
+        b = [n for n in range(1,(len(grid) * len(grid) +1)) if n not in values]
+        return [a,b[-1]]
