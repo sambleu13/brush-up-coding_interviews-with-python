@@ -23,7 +23,7 @@ def keyword_index(docs):
     empty_docs = 0
     if len(docs) != 0:
         for i, doc in enumerate(docs):
-            if doc != "" or doc is not None:
+            if doc:
                 doc_words = doc.split()
                 for word in doc_words:
                     if word in key_index:
@@ -31,12 +31,9 @@ def keyword_index(docs):
                         print("new doc", key_index[word])
                     else:
                         key_index[word][i] = 1
-                        print("new word",word,i,1)              
-            else:
-                empty_docs += 1
-        if empty_docs == len(docs):
-            return key_index
-    return key_index
+                        dict(key_index[word])
+                        print("new word",word,i,1)
+    return dict(key_index)
 
 docs = ["Hello world", "world of python", "python is a snake"]
 print(keyword_index(docs))  # Expected output: {'Hello': {0: 1}, 'world': {0: 1, 1: 1}, 'of': {1: 1}, 'python': {1: 1, 2: 1}, 'is': {2: 1}, 'a': {2: 1}, 'snake': {2: 1}}
