@@ -11,9 +11,9 @@ def binary_search(func, target, left, right, precision):
         mid = (left + right) / 2
         # TODO: Update `left` and `right` bounds based on the `func(mid)` value
         if func(mid) < target:
-            right = mid
-        else:
             left = mid
+        else:
+            right = mid
     return (left + right) / 2 
 
 # Requested precision
