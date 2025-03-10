@@ -5,15 +5,14 @@ word_lengths = [i for i in range(1, 501)]  # Lengths from 1 to 500
 
 # TODO: Implement the recursion-based binary_search_recursive method
 def binary_search_recursive(data, target, low, high):
-    while high - low > 1:
-        mid = (high + low) // 2
-        if target > data[mid]:
-            low = mid
-        elif target < data[mid]:
-            high = mid
-        else:
-            return mid
-    return low if data[low] == target else None
+    if high - low <= 1:
+        return low if data[low] == target else None
+    mid = (high + low) // 2
+    if target < data[mid]:
+        return binary_search_recursive(data, target, low, mid)
+    else:
+        return binary_search_recursive(data, target, mid, high)
+
 
 # Suppose there is a spelling bee, and a contestant is given a word.
 # The contestant knows the word is in the dictionary, so let's find what position the length of this word would hold in our sorted list of word lengths
