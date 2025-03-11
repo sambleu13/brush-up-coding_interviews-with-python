@@ -3,25 +3,27 @@ import random
 def find_kth_largest(numbers, k):
     if numbers:
         # implement this
-        pos = partition(numbers, 0, len(numbers) - 1)
-        if len(numbers) - k == pos:
-            return numbers[pos]
-        elif len(numbers) - k < pos:
-            return find_kth_largest(numbers[:pos], k)
+        pi = partition(numbers, 0, len(numbers) - 1)
+        print(pi, k-1 , bool(pi == k-1) )
+        if pi == k-1:
+            return numbers[pi]
+        elif k - 1 < pi:
+            return find_kth_largest(numbers[pi+1:], len(numbers)-k+1)
         else:
-            return find_kth_largest(numbers[pos+1:], k - (len(numbers) - pos))
+            return find_kth_largest(numbers[:pi], k)
         
-def partition(nums, l, r):
+def partition(nums, low, high):
     # implement this
-    ran_ind = random.randint(l, r)
-    nums[l], nums[ran_ind] = nums[ran_ind], nums[l]
-    piv_ind = l
-    for i in range(l + 1, r + 1):
-        if nums[i] >= nums[l]:
-            piv_ind += 1
-            nums[piv_ind], nums[i] = nums[i], nums[piv_ind]
-    nums[piv_ind], nums[l] = nums[l], nums[piv_ind]
-    return piv_ind
+    rand_ind = random.randint(low, high)
+    ind = low
+    nums[low], nums[rand_ind] = nums[rand_ind], nums[low]
+    for i in range(low, high):
+        if nums[i] >= nums[low]:
+            ind += 1
+            nums[ind], nums[i] = nums[i], nums[ind]
+    nums[ind], nums[low] = nums[low], nums[ind]
+    print(ind)
+    return ind
 
 
 print(find_kth_largest([3, 2, 1, 5, 6, 4], 2))  # Expected output: 5
