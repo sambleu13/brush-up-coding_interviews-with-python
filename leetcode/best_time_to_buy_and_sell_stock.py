@@ -1,4 +1,5 @@
 # solution using arrays
+# time complexity O(N^2)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         max_profit = profit = 0
