@@ -4,7 +4,7 @@ import heapq as hp
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        max_profit = profit = 0
+        max_profit = [0]
 
         def get_profit(self, prices, base):
             profit = [0]
@@ -17,10 +17,6 @@ class Solution:
         if len(prices) <= 1:
             return 0
         for i, buy_price in enumerate(prices):
-            profit = get_profit(self, prices[i+1:], buy_price)
+            hp.heappush(max_profit, -get_profit(self, prices[i+1:], buy_price))
             # print(buy_price, profit, array)
-            if profit > max_profit:
-                max_profit = profit
-        return max_profit
-
-        
+        return -hp.heappop(max_profit)
