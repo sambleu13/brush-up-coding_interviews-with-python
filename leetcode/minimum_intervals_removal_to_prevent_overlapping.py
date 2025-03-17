@@ -1,5 +1,5 @@
 # return the mininum number of intervals to make the intervals non-overlapping
-# solution using dictionary and set, improved
+# solution using dictionary and set, improved sorting by key = end interval
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         min_ints = 0
@@ -7,7 +7,7 @@ class Solution:
         ints = {}
         if len(intervals) > 1:
             unique_ints = {tuple(i) for i in intervals}
-            sort_ints = sorted(map(list,unique_ints))
+            sort_ints = sorted(map(list,unique_ints), key=lambda x: x[1])
             min_ints = len(intervals) - len(unique_ints)
             max_end = sort_ints[0][0]
             print(sort_ints, max_end)
