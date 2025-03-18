@@ -6,36 +6,29 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        def dfs(node, visited = None):
-            if visited is None:
-                visited = set()
+        def dfs(node, visited):
+            # initializing targetSum inside helper function to access its value
             nonlocal targetSum
-            if node:
-                visited.add(node.val)
-                print(sum(visited))
-                if sum(visited) < targetSum:
-                    if node.left and node.right:
-                        if node.left.val < node.right.val: 
-                            dfs(node.left, visited)
-                            if sum(visited) >= targetSum:
-                                return sum(visited)
-                        else:
-                            dfs(node.right, visited)
-                            if sum(visited) >= targetSum:
-                                return sum(visited)
-                    if node.left: 
-                        dfs(node.left, visited)
-                        if sum(visited) >= targetSum:
-                            return sum(visited)
-                    if node.right:
-                        dfs(node.right, visited)
-                        if sum(visited) >= targetSum:
-                            return sum(visited)
 
-            return sum(visited)
-        
-        nodes_sum = dfs(root)
-        
-        if nodes_sum == targetSum and root:
-            return True
-        return False
+            #if node is leaf we return the boolean statement of the comparison between the visitedSum and the targetSum
+            if not node.left and not node.right:
+                return visited == targetSum
+
+            #we initialize another return variable
+            left = False
+            # if node has left child we apply recursion and return True or False 
+            if node.left:
+                left = dfs(node.left, visited + node.left.val)
+            #we initialize another return variable
+            right = False
+            # if node has right child we apply recursion and return True or False
+            if node.right:
+                right = dfs(node.right, visited + node.right.val)
+            # if left is true or right is true, we return true, if both are false, we return false
+            return left or right
+
+        # if tree is empty we return false
+        if not root:
+            return False
+        # alternatively we return the result of the DFS
+        return dfs(root, root.val)
