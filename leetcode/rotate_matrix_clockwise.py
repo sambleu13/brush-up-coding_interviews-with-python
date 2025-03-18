@@ -3,16 +3,8 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        j = len(matrix)
-        # reverse rows first
         matrix.reverse()
-        # transpose matrix with loop
-        for row in range(0, j):
-            # add empy row at the end
-            matrix.append([])
-            for column in range(0, j):
-                matrix[-1].append(matrix[column][row])
-
-        # delete old rows
-        for row in range(0,j):
-           del matrix[0]
+        # transpose using nested loops
+        for row in range(len(matrix)):
+            for column in range(row+1, len(matrix)):
+                matrix[row][column], matrix[column][row] = matrix[column][row], matrix[row][column]
